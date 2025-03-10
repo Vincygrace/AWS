@@ -10,11 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @LambdaHandler(
-		lambdaName = "sns_handler",
-		roleName = "sns_handler-role",
-		isPublishVersion = true,
-		aliasName = "learn",
-		logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
+    lambdaName = "sns_handler",
+	roleName = "sns_handler-role",
+	isPublishVersion = true,
+	aliasName = "${lambdas_alias_name}",
+	logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
 @SnsEventSource(
 		targetTopic = "lambda_topic"
@@ -26,7 +26,7 @@ public class SnsHandler implements RequestHandler<Object, Map<String, Object>> {
 
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("statusCode", 200);
-		resultMap.put("body", "Processed SNS Messages Successfully");
+		resultMap.put("message", "Processed SNS Messages Successfully");
 
 		return resultMap;
 	}

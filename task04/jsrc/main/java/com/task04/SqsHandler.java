@@ -10,11 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @LambdaHandler(
-		lambdaName = "sqs_handler",
-		roleName = "sqs_handler-role",
-		isPublishVersion = true,
-		aliasName = "learn",
-		logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
+    lambdaName = "sqs_handler",
+	roleName = "sqs_handler-role",
+	isPublishVersion = true,
+	aliasName = "${lambdas_alias_name}",
+	logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
 @SqsTriggerEventSource(
 		targetQueue = "async_queue",
@@ -27,7 +27,7 @@ public class SqsHandler implements RequestHandler<Object, Map<String, Object>> {
 
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("statusCode", 200);
-		resultMap.put("body", "Processed SQS Messages Successfully");
+		resultMap.put("message", "Processed SQS Messages Successfully");
 
 		return resultMap;
 	}
